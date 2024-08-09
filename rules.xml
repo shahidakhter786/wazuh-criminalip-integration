@@ -1,0 +1,167 @@
+<group name="criminalip,">
+ <!-- wazuh JSON Decoder  -->
+  <rule id="200000" level="0">
+    <decoded_as>json</decoded_as>
+    <description>Parent rule for JSON Decoding detection.</description>
+  </rule>
+  
+  <!-- Main CriminalIP Rule -->
+  <rule id="100623" level="10">
+    <if_sid>200000</if_sid>
+    <field name="integration">criminalip</field>
+    <match>criminalip</match>
+    <description>CriminalIP Events</description>
+  </rule>
+
+  <!-- VPN Detection Rule -->
+  <rule id="100624" level="6">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.is_vpn">true</field>
+    <description>VPN detected in IP address: $(criminalip.ip)</description>
+    <group>vpn,criminalip</group>
+  </rule>
+
+  <!-- TOR Detection Rule -->
+  <rule id="100625" level="7">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.is_tor">true</field>
+    <description>TOR network detected in IP address: $(criminalip.ip)</description>
+    <group>tor,criminalip</group>
+  </rule>
+
+  <!-- Proxy Detection Rule -->
+  <rule id="100626" level="5">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.is_proxy">true</field>
+    <description>Proxy server detected in IP address: $(criminalip.ip)</description>
+    <group>proxy,criminalip</group>
+  </rule>
+
+  <!-- Dark Web Activity Rule -->
+  <rule id="100627" level="8">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.is_darkweb">true</field>
+    <description>Dark web activity detected in IP address: $(criminalip.ip)</description>
+    <group>darkweb,criminalip</group>
+  </rule>
+
+  <!-- Critical Score Rule -->
+  <rule id="100628" level="10">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.score_inbound">Critical</field>
+    <description>Critical risk score for IP address: $(criminalip.ip)</description>
+    <group>critical,criminalip</group>
+  </rule>
+
+  <!-- Dangerous Score Rule -->
+  <rule id="100629" level="9">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.score_inbound">Dangerous</field>
+    <description>Dangerous risk score for IP address: $(criminalip.ip)</description>
+    <group>dangerous,criminalip</group>
+  </rule>
+
+  <!-- Moderate Score Rule -->
+  <rule id="100630" level="6">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.score_inbound">Moderate</field>
+    <description>Moderate risk score for IP address: $(criminalip.ip)</description>
+    <group>moderate,criminalip</group>
+  </rule>
+
+  <!-- Low Score Rule -->
+  <rule id="100631" level="3">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.score_inbound">Low</field>
+    <description>Low risk score for IP address: $(criminalip.ip)</description>
+    <group>low,criminalip</group>
+  </rule>
+
+  <!-- Safe Score Rule -->
+  <rule id="100632" level="2">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.score_inbound">Safe</field>
+    <description>Safe score for IP address: $(criminalip.ip)</description>
+    <group>safe,criminalip</group>
+  </rule>
+
+  <!-- Hosting Detection Rule -->
+  <rule id="100633" level="5">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.is_hosting">true</field>
+    <description>Hosting service detected in IP address: $(criminalip.ip)</description>
+    <group>hosting,criminalip</group>
+  </rule>
+
+  <!-- Cloud Service Detection Rule -->
+  <rule id="100634" level="4">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.is_cloud">true</field>
+    <description>Cloud service detected in IP address:$(criminalip.ip)</description>
+    <group>cloud,criminalip</group>
+  </rule>
+
+  <!-- Snort Activity Detection Rule -->
+  <rule id="100635" level="5">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.is_snort">true</field>
+    <description>Snort activity detected in IP address: $(criminalip.ip)</description>
+    <group>snort,criminalip</group>
+  </rule>
+
+  <!-- Scanner Activity Detection Rule -->
+  <rule id="100636" level="7">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.is_scanner">true</field>
+    <description>Scanner activity detected in IP address: $(criminalip.ip)</description>
+    <group>scanner,criminalip</group>
+  </rule>
+
+  <!-- Mobile Network Detection Rule -->
+  <rule id="100637" level="4">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.is_mobile">true</field>
+    <description>Mobile network detected in IP address: $(criminalip.ip)</description>
+    <group>mobile,criminalip</group>
+  </rule>
+
+  <!-- Anonymous VPN Detection Rule -->
+  <rule id="100638" level="5">
+    <if_sid>100623</if_sid>
+    <field name="criminalip.is_anonymous_vpn">true</field>
+    <description>Anonymous VPN detected in IP address: $(criminalip.ip)</description>
+    <group>anonymous_vpn,criminalip</group>
+  </rule>
+
+  <!-- Debugging Rule -->
+  <rule id="100639" level="1">
+    <if_sid>100623</if_sid>
+    <description>Debugging CriminalIP integration: $(criminalip.ip)</description>
+    <group>debug,criminalip</group>
+  </rule>
+
+  <!-- Error: Missing Parameter -->
+  <rule id="100640" level="5">
+    <if_sid>100623</if_sid>
+    <field name="full_log">.*Missing Parameter.*</field>
+    <description>CriminalIP API error: Missing parameter in request</description>
+    <group>error,criminalip</group>
+  </rule>
+
+  <!-- Error: Invalid IP Address -->
+  <rule id="100641" level="5">
+    <if_sid>100623</if_sid>
+    <field name="full_log">.*Invalid IP Address.*</field>
+    <description>CriminalIP API error: Invalid IP address format</description>
+    <group>error,criminalip</group>
+  </rule>
+
+  <!-- Error: Internal Server Error -->
+  <rule id="100642" level="7">
+    <if_sid>100623</if_sid>
+    <field name="full_log">.*Internal Server Error.*</field>
+    <description>CriminalIP API error: Internal server error encountered</description>
+    <group>error,criminalip</group>
+  </rule>
+
+</group>
