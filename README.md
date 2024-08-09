@@ -56,3 +56,31 @@ Benefits of the Integration:
     Comprehensive Visibility: Gain a holistic view of your security landscape by correlating internal alerts with external threat data.
     Prioritized Alerts: Utilize CriminalIP’s risk scoring to prioritize which alerts require immediate attention, reducing alert fatigue and focusing on high-risk incidents.
     Scalable and Automated: The integration allows for automated enrichment of Wazuh alerts, ensuring your security operations scale effectively as your infrastructure grows.
+
+
+
+
+
+    Configuring the Integration
+
+Before configuring, you’ll need to get an API key from criminalIP website.
+
+To implement the Wazuh and CriminalIP integration, follow these steps:
+
+    Clone the Repository: Clone the repository from [GitHub]
+
+(https://github.com/shahidakhter786/wazuh-criminalip-integration) to your Wazuh server.
+
+2. Set Up the Python Script:
+— The `custom-criminalip.py` script needs to be configured with your CriminalIP API key. This script queries CriminalIP’s API and processes the data received. Add your API key in the python script.
+— Place the script in the appropriate directory on your Wazuh server.
+
+3. Deploy the Rules:
+— The `rules.xml` file contains the necessary rules for Wazuh to parse and act upon the data received from CriminalIP.
+— Copy this file into the Wazuh rules directory to enable the integration.
+
+4. Update Wazuh Configuration:
+— Use the provided `ossec.conf` to ensure that Wazuh is correctly configured to use the CriminalIP integration. This configuration file includes settings that direct Wazuh to trigger alerts based on CriminalIP data.
+
+5. Test the Integration:
+— After setting everything up, run test alerts through Wazuh to verify that the integration is functioning as expected. Check if Wazuh is generating alerts with enriched data from CriminalIP.
