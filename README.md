@@ -1,4 +1,4 @@
-# wazuh-criiminalip-integration
+# wazuh-criminalip-integration
 Understanding the Tools
 What is Wazuh?
 
