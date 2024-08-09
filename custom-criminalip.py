@@ -134,5 +134,5 @@ try:
  send_event(alert_output, alert.get("agent"))
  sys.exit()
 else:
- debug(f"Event source is not 'awswaf': {event_source}")
+ debug(f"Event source is not 'web': {event_source}")
  sys.exit()
