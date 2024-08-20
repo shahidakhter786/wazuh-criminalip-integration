@@ -50,14 +50,9 @@ def send_event(msg, agent=None):
 # Read configuration parameters
 try:
     alert_file = open(sys.argv[1])
-    api_key = sys.argv[2] if len(sys.argv) > 1 else ""
     alert = json.loads(alert_file.read())
     alert_file.close()
-    logging.info("Alert loaded successfully")
-    logging.debug(alert)
-    if api_key == "":
-        logging.debug(f"Error reading api_key, configure ossec.conf")
-        sys.exit(1)
+    debug("Alert loaded successfully")
 except Exception as e:
     debug(f"Error reading alert file: {e}")
     sys.exit(1)
@@ -76,7 +71,7 @@ criminalip_apicall_headers = {
 # Extract Event Source
 try:
     event_source = alert["rule"]["groups"]
-    logging.debug(f"Event source: {event_source}")
+    debug(f"Event source: {event_source}")
 except KeyError as e:
     debug(f"Missing expected key in alert: {e}")
     sys.exit(1)
