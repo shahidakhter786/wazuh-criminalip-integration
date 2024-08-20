@@ -50,9 +50,14 @@ def send_event(msg, agent=None):
 # Read configuration parameters
 try:
     alert_file = open(sys.argv[1])
+    api_key = sys.argv[2] if len(sys.argv) > 1 else ""
     alert = json.loads(alert_file.read())
     alert_file.close()
-    debug("Alert loaded successfully")
+    logging.info("Alert loaded successfully")
+    logging.debug(alert)
+    if api_key == "":
+        logging.debug(f"Error reading api_key, configure ossec.conf")
+        sys.exit(1)
 except Exception as e:
     debug(f"Error reading alert file: {e}")
     sys.exit(1)
