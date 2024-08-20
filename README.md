@@ -3,6 +3,7 @@
 
 
 Give a star to support developer!!!
+Shahid Akhter - Shahidahktar@gmail.com
 
 
 
