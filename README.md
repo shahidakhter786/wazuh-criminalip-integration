@@ -79,15 +79,15 @@ To implement the Wazuh and CriminalIP integration, follow these steps:
 (https://github.com/shahidakhter786/wazuh-criminalip-integration) to your Wazuh server.
 
 2. Set Up the Python Script:
-— The `custom-criminalip.py` script needs to be configured with your CriminalIP API key. This script queries CriminalIP’s API and processes the data received. Add your API key in the python script.
-— Place the script in the appropriate directory on your Wazuh server.
+— The `custom-criminalip.py` script needs to be configured with your CriminalIP API key. This script queries CriminalIP’s API and processes the data received. Add your API key in the ossec.conf Integration block.
+— Place the script in the integratons folder on your Wazuh server.
 
 3. Deploy the Rules:
 — The `rules.xml` file contains the necessary rules for Wazuh to parse and act upon the data received from CriminalIP.
 — Copy this file into the Wazuh rules directory to enable the integration.
 
 4. Update Wazuh Configuration:
-— Use the provided `ossec.conf` to ensure that Wazuh is correctly configured to use the CriminalIP integration. This configuration file includes settings that direct Wazuh to trigger alerts based on CriminalIP data.
+— Use the provided `ossec.conf` to ensure that Wazuh is correctly configured to use the CriminalIP integration. This configuration file includes settings that direct Wazuh to trigger alerts based on CriminalIP data. Add your API key in the ossec.conf 
 
 5. Test the Integration:
 — After setting everything up, run test alerts through Wazuh to verify that the integration is functioning as expected. Check if Wazuh is generating alerts with enriched data from CriminalIP.
