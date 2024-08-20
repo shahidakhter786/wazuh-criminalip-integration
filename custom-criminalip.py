@@ -61,7 +61,7 @@ except Exception as e:
 alert_output = {}
 
 # CriminalIP API AUTH KEY
-criminalip_api_key = "Your API KEY here"
+criminalip_api_key = api_key
 
 # API - HTTP Headers
 criminalip_apicall_headers = {
