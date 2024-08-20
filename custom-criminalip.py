@@ -70,8 +70,8 @@ criminalip_apicall_headers = {
 
 # Extract Event Source
 try:
-    event_source = alert["rule"]["groups"][0]
-    debug(f"Event source: {event_source}")
+    event_source = alert["rule"]["groups"]
+    logging.debug(f"Event source: {event_source}")
 except KeyError as e:
     debug(f"Missing expected key in alert: {e}")
     sys.exit(1)
@@ -149,5 +149,5 @@ if any(group in ['web', 'sshd', 'invalid_login', 'firewall', 'ids', 'system', 'd
         send_event(alert_output, alert.get("agent"))
         sys.exit()
 else:
-    debug(f"Event source is not 'web': {event_source}")
+    debug(f"Event source is not found : {event_source}")
     sys.exit()
